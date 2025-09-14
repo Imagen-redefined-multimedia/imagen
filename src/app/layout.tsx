@@ -5,20 +5,31 @@ import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 
 
-/*const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-*/
 
 export const metadata: Metadata = {
-  title: "Imagen Wall Art",
-  description: "Redefined Multimedia",
+  title: "Imagen Wall Art | Redefined Multimedia",
+  description: "High quality printing and branding solutions to elevate your business. Custom designs, eco-friendly printing materials, and fast delivery",
+  keywords: "printing, wall art, branding, custom design, eco-friendly printing, business branding, business cards, steel fabrication, flyers, posters.",
+  authors: [{name: "Imagen | Redefined multimedia"}],
+  viewport: "width=device-width, intitial-scale=1",
+  robot:"index, follow",
+  openGraph: {
+   title: "Imagen Redefined Multimedia | Printing And Branding Services",
+   description: "High quality quality printing and branding solutions to elevate your business.",
+   url: "",
+   siteName: "Imagen Redefined Multimedia",
+   images: [
+   {
+	   url: "",
+	   width: 1200,
+	   height: 630,
+	   alt: "Imagen Redefined Multimedia branding example",
+     },
+   ],
+   locale: "en_US",
+   type: "website",
+  }
+  
 };
 
 export default function RootLayout({
@@ -33,8 +44,8 @@ export default function RootLayout({
       >
          <div>
            <Navbar/>
-		<div className=" flex mx-20">
-           		{children}
+		<div >
+		{children}
 		</div>
            <Footer/>
          </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 
-export default function Navbar() {
+export default function SideNav() {
 
    const sideMenuRef = useRef();
    
