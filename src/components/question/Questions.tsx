@@ -2,7 +2,7 @@ import React from "react";
 import QuestionTag from "./QuestionTag";
 import Qcard from "./Qcard";
 
-export default function Questions({question, answer}){
+export default function Questions(){
 
 return(
 
