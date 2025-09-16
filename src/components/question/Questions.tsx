@@ -8,7 +8,7 @@ return(
 
 	<>
 	 <div className={"mx-5 md:mx-15 lg:mx-16 mt-10 md:mt-12  text-center "}>
-		<h2 className={"text-[#2D90DB] text-base md:text-lg font-light"}>FAQ's</h2>
+		<h2 className={"text-[#2D90DB] text-base md:text-lg font-light"}>FAQ&apos;s</h2>
 		<h1>
 		 <span className={" font-black text-[1.2rem] md:text-[1.5rem]"} >QUESTION:</span>
 		 <span className={" text-[#2D90DB] text-[1.2rem] md:text-[1.5rem] font-bold"}> LOOK HERE</span>
