@@ -19,7 +19,7 @@ export default function Footer() {
 		aspectratio={"auto"} 
 		className={"w-[90px] md:w-[120px] x:w-[150px] h-auto"}/>
         <div>
-	   <h2 className={" text-center font-semibold text-[0.98rem] md:text-[1.3rem] lg:text-[1.45rem] xl:text-[1.6rem]"}> Contact us and let's get to work </h2>
+	   <h2 className={" text-center font-semibold text-[0.98rem] md:text-[1.3rem] lg:text-[1.45rem] xl:text-[1.6rem]"}> Contact us and let&apos;s get to work </h2>
 		<FooterLinks />
 	</div>
      </div>
