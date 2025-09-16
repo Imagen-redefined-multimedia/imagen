@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import ServiceTags from "./Services_tags";
 
-export default function Services ({number, tag}) {
+export default function Services () {
 
 return(
 	<>
