@@ -18,7 +18,7 @@ export default function Navbar() {
 
       const sections = ["top", "services", "projects", "about", "contact"];
       let current = "top";
-      for (let id of sections) {
+      for (const id of sections) {
         const element = document.getElementById(id);
         if (element) {
           const rect = element.getBoundingClientRect();
