@@ -12,7 +12,6 @@ return(
 			alt={"work_pic"}
 			width={350}
 			height={350}
-			aspectratio={"auto"} 
 			className={"w-[200px] md:w-[250px] lg:w-[300px] xl:w-[350px] "}/>
 		</div>
 		<div className={""}>
