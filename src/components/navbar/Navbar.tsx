@@ -48,7 +48,7 @@ export default function Navbar() {
     }
   };
 
-  const getNavClass = (id, isMobile = false) =>
+  const getNavClass = (id: string, isMobile = false) =>
     activeSection === id
       ? navStyle
       : isMobile
