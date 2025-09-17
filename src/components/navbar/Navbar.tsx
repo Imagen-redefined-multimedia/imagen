@@ -37,7 +37,7 @@ export default function Navbar() {
   }, []);
 
   // Smooth scroll function with offset for sticky navbar
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       const yOffset = -80; // adjust offset to navbar height
