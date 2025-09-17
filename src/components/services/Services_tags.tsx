@@ -1,5 +1,10 @@
 import React from "react";
 
+interface TagProps {
+  number: string | number;
+  tag: string;
+}
+
 const ServiceTag:
 React.FC<TagProps> = ({number, tag }) => {
 
