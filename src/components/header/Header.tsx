@@ -1,4 +1,4 @@
-"usestate"
+see"usestate"
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -30,7 +30,6 @@ return(
 		  alt={"printing_large_format"}
 		  width={500}
 		  height={250}
-		  aspectatio={"auto"}
 		  className=" w-[300px] lg:w-[450px] xl:w-[500px] "/>
 		
 	  </div>
