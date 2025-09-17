@@ -16,7 +16,6 @@ return(
 		 	width={250}
 		 	height={250}
 			priority
-			aspectratio={"auto"}
 			className={" w-[100px] md:w-[200px] mt-5 xl:w-[250px] "}/>
 			<ul className={" space-y-1.5 lg:space-y-2"}>
 			  <li> <ServiceTags number={"1"} tag={"GRAPHIC DESIGN"} /> </li>
