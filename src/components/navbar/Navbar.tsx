@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback,useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,32 +12,33 @@ export default function Navbar() {
   const navStyle = "bg-[#2D90DB] text-white font-semibold rounded-md px-2 py-1";
   const sideNavStyle = "border-b border-gray-500 w-full font-Ovo";
 
-  const sections = ["top", "services", "projects", "about", "contact"];
-  const mobileSections = ["top", "about", "services", "projects", "contact"];
+  const sections = useMemo(()=> ["top", "services", "projects", "about", "contact"], []);
+  const mobileSections = useMemo(()=> ["top", "about", "services", "projects", "contact"], []);
 
   // Scrollspy effect
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScroll(window.scrollY > 50);
+  const handleScroll = () => {
+    setIsScroll(window.scrollY > 50);
 
-      let current = "top";
-      for (const id of sections) {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            current = id;
-            break;
-          }
+    let current = "top";
+    for (const id of sections) {
+      const element = document.getElementById(id);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          current = id;
+          break;
         }
       }
-      setActiveSection(current);
-    };
+    }
+    setActiveSection(current);
+  };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // on mount
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  window.addEventListener("scroll", handleScroll);
+  handleScroll(); // on mount
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [sections]);
+
 
   // Scroll function
   const scrollToSection = useCallback((id: string) => {
