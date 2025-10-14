@@ -1,7 +1,20 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { motion, easeInOut } from "framer-motion";
 
 export default function Work() {
+  // Variants for the animation
+  const containerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: easeInOut },
+    },
+  };
+
   return (
     <div
       className="relative mt-10 md:mt-20 bg-gradient-to-r from-[#B5DAEA]/80 to-[#C5F0F8]/30 overflow-hidden"
@@ -20,7 +33,12 @@ export default function Work() {
       </div>
 
       {/* Content Container */}
-      <div className="relative flex flex-col md:flex-row mx-5 md:mx-12 py-8  items-center md:gap-20 space-y-5 md:space-y-0">
+      <motion.div
+        className="relative flex flex-col md:flex-row mx-5 md:mx-12 py-8 items-center md:gap-20 space-y-5 md:space-y-0"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <div>
           <Image
             src="/assets/work.svg"
@@ -37,10 +55,11 @@ export default function Work() {
             Imagen Wall Art will assist you with:
           </p>
           <p className="text-[1.05rem] md:text-[1.2rem] lg:text-[1.45rem] font-light">
-            Create visual identity that captures the attention of your tailored target audience, while setting you apart from the competition.
+            Create visual identity that captures the attention of your tailored
+            target audience, while setting you apart from the competition.
           </p>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
