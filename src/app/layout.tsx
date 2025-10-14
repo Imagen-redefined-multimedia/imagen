@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "Imagen Wall Art | Redefined Multimedia",
@@ -46,7 +47,10 @@ export default function RootLayout({
       <body>
         <div>
           <Navbar />
-          <div>{children}</div>
+          <div>
+            {children}
+            < Analytics />
+          </div>
           <Footer />
         </div>
       </body>
