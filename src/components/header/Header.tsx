@@ -20,7 +20,7 @@ export default function Header() {
             className="flex items-center gap-4 text-[#2D90DB] text-[0.8rem] md:text-[1rem]"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
           >
             <IoIosArrowRoundForward size={40} />
             Welcome to Imagen Redefined Media
@@ -30,7 +30,7 @@ export default function Header() {
             className="font-bold text-[1.5rem] md:text-[2rem] xl:text-[2.5rem]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.7 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
           >
             Elevate Your Brand with Our Stunning Print Solutions.
           </motion.h1>

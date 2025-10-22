@@ -1,73 +1,27 @@
-"use client";
+import fs from 'fs';
+import path from 'path';
+import ImageCarousel, { ImageItem } from './EmblaCarousel';
 
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import Image from "next/image";
+export default async function HomePage() {
+  const carouselDir = path.join(process.cwd(), 'public', 'carousel');
+  const files = fs.readdirSync(carouselDir); // get filenames in /public/carousel
 
-// Example projects data
-const projectsData = [
-  {
-    id: 1,
-    title: "Project One",
-    image: "/carousel/menu-01.jpg",
-  },
-  {
-    id: 2,
-    title: "Project Two",
-    image: "/carousel/menu-02.jpg",
-  },
-  {
-    id: 3,
-    title: "Project Three",
-    image: "/carousel/menu-03.jpg",
-  },
-  // Add as many as you want
-];
-
-const Projects = () => {
-  return (
-    <div
-      id="projects"
-      className="mx-5 md:mx-15 lg:mx-16 mt-10 md:mt-12 text-center items-center"
-    >
-      <h1 className="text-[1.2rem] md:text-[1.5rem] xl:text-[1.6rem]">Our Projects</h1>
-      <p className="font-light text-[1rem] md:text-[1.2rem] xl:text-[1.4rem]">
-        Latest Accomplished Projects
-      </p>
-
-      <div className="mt-5 w-full">
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={1}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          loop={true}
-          autoplay={{ delay: 3000 }}
-        >
-          {projectsData.map(({ id, title, image }) => (
-            <SwiperSlide key={id}>
-              <div className="relative rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src={image}
-                  alt={title}
-                  width={400}
-                  height={250}
-                  className="object-cover w-full h-64"
-                />
-                <div className="absolute bottom-0 bg-black bg-opacity-50 w-full p-3 text-white font-semibold">
-                  {title}
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </div>
+  // Filter image files (optional, if you only want JPGs or PNGs)
+  const imageFiles = files.filter((file) =>
+    /\.(jpg|jpeg|png|gif|webp)$/i.test(file)
   );
-};
 
-export default Projects;
+  const images: ImageItem[] = imageFiles.map((file) => ({
+    url: `/carousel/${file}`, // relative to public/
+    alt: `Image ${file}`,
+  }));
+
+  return (
+    <main className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
+      <div className="bg-blue-100 p-6 rounded-lg shadow-md max-w-6xl w-full h-[560px] flex flex-col justify-center items-center">
+        <h2 className="text-2xl font-semibold mb-4 text-center">Image Carousel</h2>
+        <ImageCarousel images={images} autoplayDelay={3000} />
+      </div>
+    </main>
+  );
+}

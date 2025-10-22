@@ -1,0 +1,140 @@
+/* Wrapper to center and constrain carousel */
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+/* Embla Core Styles */
+.embla {
+  overflow: hidden;
+  --slide-height: 19rem;
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+  --slide-spacing-sm: 1.6rem;
+  --slide-size-sm: 50%;
+  --slide-spacing-lg: 2rem;
+  --slide-size-lg: calc(100% / 3);
+}
+
+.embla__container {
+  display: flex;
+  backface-visibility: hidden;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--slide-spacing) * -1);
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 750px) {
+  .embla__container {
+    margin-left: calc(var(--slide-spacing-sm) * -1);
+  }
+}
+@media (min-width: 1200px) {
+  .embla__container {
+    margin-left: calc(var(--slide-spacing-lg) * -1);
+  }
+}
+
+.embla__slide {
+  min-width: 0;
+  flex: 0 0 var(--slide-size);
+  padding-left: var(--slide-spacing);
+  box-sizing: border-box;
+}
+
+@media (min-width: 750px) {
+  .embla__slide {
+    flex: 0 0 var(--slide-size-sm);
+    padding-left: var(--slide-spacing-sm);
+  }
+}
+
+@media (min-width: 1200px) {
+  .embla__slide {
+    flex: 0 0 var(--slide-size-lg);
+    padding-left: var(--slide-spacing-lg);
+  }
+}
+
+/* Slide Image */
+.embla__slide__img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Navigation Buttons */
+.embla__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.embla__button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+/* Pagination Dots */
+.embla__dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.embla__dot {
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.embla__dot:hover {
+  background-color: #999;
+}
+
+.isSelected {
+  background-color: #333;
+}
+/* Progress Bar Container */
+.embla__progress {
+  height: 4px;
+  background: #e0e0e0;
+  width: 100%;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  border-radius: 2px;
+  position: relative;
+}
+
+/* Progress Bar Fill */
+.embla__progress__bar {
+  background: #3b82f6; /* Tailwind blue-500 */
+  height: 100%;
+  width: 0%;
+  transition: width linear;
+}

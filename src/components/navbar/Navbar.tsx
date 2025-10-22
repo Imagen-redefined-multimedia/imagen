@@ -73,7 +73,7 @@ export default function Navbar() {
           <motion.nav
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.8 }}
             className={`w-full flex items-center justify-between px-2 lg:px-4 py-2 ${
               isScroll ? "bg-[#2D90DB]/60 backdrop-blur-md shadow-sm" : ""
             }`}

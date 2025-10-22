@@ -30,13 +30,13 @@ export default function Qcard() {
         </Link>
 
         {/* Call button as anchor for tel: */}
-        <Link href="tel:+26656339864" legacyBehavior>
-          <a
+        <Link href="tel:+26656339864" >
+          <span
             className="bg-white rounded-md w-[120px] h-[40px] px-4 py-2 text-md hover:bg-[#56a0b6] transition duration-300 flex items-center justify-center"
             aria-label="Call Contact"
           >
             Call
-          </a>
+          </span>
         </Link>
       </div>
     </div>
