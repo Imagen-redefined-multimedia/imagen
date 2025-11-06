@@ -18,18 +18,14 @@ interface ImageCarouselProps {
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, autoplayDelay = 3000 }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [progressKey, setProgressKey] = useState(0); // used to reset progress bar
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   const isPaused = useRef(false);
 
-  // Handle selection change (for pagination)
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
-    setProgressKey(prev => prev + 1); // Reset progress bar
   }, [emblaApi]);
 
-  // Setup autoplay
   const autoplay = useCallback(() => {
     if (isPaused.current || !emblaApi) return;
 
@@ -37,12 +33,11 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, autoplayDelay = 3
       if (emblaApi.canScrollNext()) {
         emblaApi.scrollNext();
       } else {
-        emblaApi.scrollTo(0); // Loop back to first
+        emblaApi.scrollTo(0);
       }
     }, autoplayDelay);
   }, [emblaApi, autoplayDelay]);
 
-  // Setup listeners on mount
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -55,7 +50,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, autoplayDelay = 3
     };
   }, [emblaApi, onSelect, autoplay]);
 
-  // Pause on mouse hover
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -80,7 +74,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, autoplayDelay = 3
     };
   }, [emblaApi, autoplay]);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!emblaApi) return;
@@ -101,7 +94,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, autoplayDelay = 3
     };
   }, [emblaApi]);
 
-  // Navigation handlers
   const scrollTo = (index: number) => emblaApi?.scrollTo(index);
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
@@ -141,18 +133,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, autoplayDelay = 3
             onClick={() => scrollTo(idx)}
           />
         ))}
-      </div>
-
-      {/* Progress Bar */}
-      <div className={styles.embla__progress}>
-        <div
-          className={styles.embla__progress__bar}
-          key={progressKey}
-          style={{
-            width: '100%',
-            transition: `width ${autoplayDelay}ms linear`,
-          }}
-        />
       </div>
     </div>
   );
