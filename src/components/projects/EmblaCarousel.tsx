@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import styles from './ImageCarousel.module.css';
+// Import the types from the core embla-carousel package
+import type { EmblaOptionsType } from 'embla-carousel';
+import AutoScroll from 'embla-carousel-auto-scroll';
 import Image from 'next/image';
 
 export interface ImageItem {
@@ -12,127 +14,57 @@ export interface ImageItem {
 
 interface ImageCarouselProps {
   images: ImageItem[];
-  autoplayDelay?: number;
+  options?: EmblaOptionsType;
 }
 
-const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, autoplayDelay = 3000 }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
-  const isPaused = useRef(false);
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, options }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: 'center',
+      dragFree: true,
+      ...options,
+    } as EmblaOptionsType,
+    [
+      AutoScroll({
+        playOnInit: true,
+        speed: 0.5,
+        stopOnInteraction: false,
+      }),
+    ]
+  );
 
-  const onSelect = useCallback(() => {
+  useEffect(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+    const autoScroll = emblaApi.plugins()?.autoScroll;
+    if (autoScroll && typeof autoScroll.play === 'function') autoScroll.play();
   }, [emblaApi]);
-
-  const autoplay = useCallback(() => {
-    if (isPaused.current || !emblaApi) return;
-
-    autoplayRef.current = setTimeout(() => {
-      if (emblaApi.canScrollNext()) {
-        emblaApi.scrollNext();
-      } else {
-        emblaApi.scrollTo(0);
-      }
-    }, autoplayDelay);
-  }, [emblaApi, autoplayDelay]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    emblaApi.on('select', onSelect);
-    onSelect();
-    autoplay();
-
-    return () => {
-      if (autoplayRef.current) clearTimeout(autoplayRef.current);
-    };
-  }, [emblaApi, onSelect, autoplay]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    const node = emblaApi.containerNode();
-
-    const onMouseEnter = () => {
-      isPaused.current = true;
-      if (autoplayRef.current) clearTimeout(autoplayRef.current);
-    };
-
-    const onMouseLeave = () => {
-      isPaused.current = false;
-      autoplay();
-    };
-
-    node.addEventListener('mouseenter', onMouseEnter);
-    node.addEventListener('mouseleave', onMouseLeave);
-
-    return () => {
-      node.removeEventListener('mouseenter', onMouseEnter);
-      node.removeEventListener('mouseleave', onMouseLeave);
-    };
-  }, [emblaApi, autoplay]);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!emblaApi) return;
-
-      switch (event.key) {
-        case 'ArrowLeft':
-          emblaApi.scrollPrev();
-          break;
-        case 'ArrowRight':
-          emblaApi.scrollNext();
-          break;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [emblaApi]);
-
-  const scrollTo = (index: number) => emblaApi?.scrollTo(index);
-  const scrollPrev = () => emblaApi?.scrollPrev();
-  const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <div className={styles.carouselWrapper}>
-      <div className={styles.embla} ref={emblaRef}>
-        <div className={styles.embla__container}>
-          {images.map((img, idx) => (
-            <div className={styles.embla__slide} key={idx}>
+    <div className="embla w-full overflow-hidden">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container flex gap-4">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="
+                embla__slide 
+                relative 
+                flex-[0_0_90%] sm:flex-[0_0_45%] lg:flex-[0_0_30%]
+                h-[240px] sm:h-[320px] lg:h-[400px]
+              "
+            >
               <Image
-                src={img.url}
-                alt={img.alt || `Slide ${idx + 1}`}
-                width={400}
-                height={520}
-                className={styles.embla__slide__img}
+                src={image.url}
+                alt={image.alt || `slide-${index}`}
+                fill
+                className="object-cover rounded-2xl shadow-md"
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                priority={index === 0}
               />
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Navigation Buttons */}
-      <button onClick={scrollPrev} className={`${styles.embla__button} ${styles.prev}`}>
-        ‹
-      </button>
-      <button onClick={scrollNext} className={`${styles.embla__button} ${styles.next}`}>
-        ›
-      </button>
-
-      {/* Pagination Dots */}
-      <div className={styles.embla__dots}>
-        {images.map((_, idx) => (
-          <button
-            key={idx}
-            className={`${styles.embla__dot} ${idx === selectedIndex ? styles.isSelected : ''}`}
-            onClick={() => scrollTo(idx)}
-          />
-        ))}
       </div>
     </div>
   );
